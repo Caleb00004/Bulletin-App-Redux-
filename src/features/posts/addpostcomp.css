@@ -1,0 +1,22 @@
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+section button {
+    border: 1px solid black;
+    width: 5rem;
+    align-self: center;
+}
+input {
+    border: none;
+}
+
+textarea {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 100px;
+    max-height: 100px;
+    max-width: 100%;
+}

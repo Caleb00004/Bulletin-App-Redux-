@@ -1,0 +1,16 @@
+article {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    padding: 13px;
+    text-align: justify;
+}
+
+.reactions > p {
+    margin-right: 10px;
+    border: 0.5px solid black;
+    border-radius: 2px;
+}
+
+

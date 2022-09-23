@@ -1,0 +1,40 @@
+// NOTE: React toolkit uses Ember.js under the hood
+
+.substring method.
+- This is used to get a specific number of letters from a string.
+
+Prepare CallBack
+Is used to construct the payload value i.e if the state is an object with multiple parameters (if state is an array of Objects)
+you can use prepare callBack to format the data (in the state obj form) gotten from an action so it can be added to the state.
+
+The prepare callBack will be done in the slice file/function.
+
+    How to do This?
+ - Add 'reducer in from of the action annonymous function e.g 
+ - Then add a prepare function under the 'reducer'. it's parameters will be what data it's recienving from user
+        It ill return a payload with the formatted data.
+
+    i.e for a Blog Post state
+const state = [ {id: '1', title:'micahel', content: 'This is just to say that a bird is a mouse'} ]//The state object format [ needs an id,title & content property ]
+
+const mySlice = creareSlice....
+ 
+reducers: {
+    'action1' : {
+        reducer (stat,action) {
+            state.push(action)
+        },
+        prepare(title, content) {  // it wil recenive title and content arguements formthe component that calls the action
+            return {
+                payload: {   // return the data gotten from action.payload in the state object format
+                    id: ''',
+                    title,
+                    content,
+                }
+            }
+        }
+    }
+}
+
+format the data 
+

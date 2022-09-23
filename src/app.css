@@ -1,0 +1,11 @@
+* {
+    background-color: gray;
+    color: white;
+    box-sizing: border-box;
+}
+main {  
+    text-align: center;
+    width: 60%;
+    margin-right: auto;
+    margin-left: auto;
+}
