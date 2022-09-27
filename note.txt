@@ -38,3 +38,13 @@ reducers: {
 
 format the data 
 
+        Redux Thunk
+    createAsyncThunk
+// using createAsyncThunk & axios to fetch Api data
+// createAsyncThunks takes 2 arguements, 1st -> string for prefix of generated action Tyoe
+//    2nd -> is a payload creator callback. this function should return the data fetched
+
+
+// Sometimes slices reducers may need to respond to other reducers that wer'ent defined as Part of the slices Reducers.
+//      You use an extraReducers function. This accepts a builder parameter.
+//      builder Parameter is an object that let's us define additional case reducers that run in response to the actions def=ined outside of the slice
