@@ -22,6 +22,12 @@ export const fetchPostData = createAsyncThunk('post/fetchPosts', async () => {
     }
 )
 
+// A new Thunk to add Post. It send the post Body to the Post API
+export const addNewPost = createAsyncThunk('posts/addNewPost', async (initialPost) => {
+    const response = await axios.post(POSTS_URL, initialPost)
+    return response.data
+})
+
 // NOTE:
 // Sometimes slices reducers may need to respond to other reducers that wer'ent defined as Part of the slices Reducers.
 //      You use an extraReducers function. This accepts a builder parameter.
@@ -59,15 +65,19 @@ const postSlice = createSlice ({
         reactionAdded: {
             reducer(state, action) {
                 const {reactKey, id} = action.payload
-                
+//                console.log(current(state.post))
                 // checked the Id of the Post and then increased the reacton based on the Reaction Key
                 // Note To Self: To use variable Name as key in object --> object[keyVarName] = 'value', You can't just use it normally like when getting an object key value. 
                 // Check: https://www.geeksforgeeks.org/how-to-use-a-variable-for-a-key-in-a-javascript-object-literal/ more explanation
                 let mapPost = current(state.post).map(postItem => {
                     return postItem.id === id ? {...postItem, reactions: {...postItem.reactions, [reactKey] : postItem.reactions[reactKey] + 1}} : postItem
                 })
+                console.log(mapPost)
+                console.log(current(state))
 
-                return mapPost
+ //               console.log(state.post)
+//                return state.post = mapPost
+                return {post: mapPost, status: 'succeeded', error: null}
             }
         }
     }, 
@@ -102,6 +112,31 @@ const postSlice = createSlice ({
                 console.log('failed')
                 state.status = 'failed'
                 state.error = action.error.message
+            })
+            .addCase(addNewPost.fulfilled, (state, action) => {
+                // Fix for API post IDs:
+                // Creating sortedPosts & assigning the id 
+                // would be not be needed if the fake API 
+                // returned accurate new post IDs
+                const sortedPosts = state.post.sort((a, b) => {
+                    if (a.id > b.id) return 1
+                    if (a.id < b.id) return -1
+                    return 0
+                })
+                action.payload.id = sortedPosts[sortedPosts.length - 1].id + 1;
+                // End fix for fake API post IDs 
+
+                action.payload.userId = Number(action.payload.userId)
+                action.payload.date = new Date().toISOString();
+                action.payload.reactions = {
+                    thumbsUp: 0,
+                    wow: 0,
+                    heart: 0,
+                    rocket: 0,
+                    coffe: 0
+                }
+                console.log(action.payload)
+                state.post.push(action.payload)
             })
     }
 })
