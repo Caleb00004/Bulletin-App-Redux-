@@ -146,6 +146,9 @@ const postSlice = createSlice ({
 export const selectAllPosts = (state) => state.post.post 
 export const getPostsStatus = (state) => state.post.status
 export const getPostsError = (state) => state.post.error
+export const selectPostById = (state, PostId) => (
+    state.post.post.find(post => post.id === PostId)
+)
 
 // postSlice automatically generated an action creator with the same name as the reducer function you created in the postSLice
 export const {postAdd, reactionAdded} = postSlice.actions // so i'm just exporting the action creator so i can use it in other files.
@@ -161,21 +164,6 @@ export default postSlice.reducer // exporting the postslice reducer so i can com
                 elit. Fugiat laboriosam officiis ad fuga eaque! Mollitia maxime, debitis nihil id quos corporis 
                 obcaecati placeat. Facere, sunt vero dolorem cupiditate voluptate commodi!`,
         date: sub(new Date(), {minutes: 10}).toISOString(),
-        reactions: {
-            thumbsUp: 0,
-            wow: 0,
-            heart: 0,
-            rocket: 0,
-            coffe: 0
-        }
-},
-    {
-        id: 2,
-        title: 'learnig redux 2',
-        content: ` Lorem ipsum dolor sit, amet consectetur adipisicing
-                elit. Fugiat laboriosam officiis ad fuga eaque! Mollitia maxime, debitis nihil id quos corporis 
-                obcaecati placeat. Facere, sunt vero dolorem cupiditate voluptate commodi!`,
-        date: sub(new Date(), {minutes: 7}).toISOString(),
         reactions: {
             thumbsUp: 0,
             wow: 0,
