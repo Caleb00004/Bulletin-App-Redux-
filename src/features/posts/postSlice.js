@@ -12,6 +12,8 @@ const initialState = {
     error: null
 }
 
+// NOTE: Thunks are like the Action creators, so they will be exported
+
 // using createAsyncThunk & axios to fetch Api data
 // createAsyncThunks takes 2 arguements, 1st -> string for prefix of generated action Tyoe
 //    2nd -> is a payload creator callback. this function should return the data fetched
@@ -23,9 +25,24 @@ export const fetchPostData = createAsyncThunk('post/fetchPosts', async () => {
 )
 
 // A new Thunk to add Post. It send the post Body to the Post API
-export const addNewPost = createAsyncThunk('posts/addNewPost', async (initialPost) => {
-    const response = await axios.post(POSTS_URL, initialPost)
+// The 'initail Post' is what is being submitted to the api. i.e the data that was inputed
+export const addNewPost = createAsyncThunk('posts/addNewPost', async (testvarame) => {
+    console.log(testvarame)
+    const response = await axios.post(POSTS_URL, testvarame)
     return response.data
+})
+
+export const updatePost = createAsyncThunk('put/addNewPost', async (initialPost) => {
+    const {id} = initialPost
+    console.log(initialPost)
+    try {
+        const response = await axios.put(`${POSTS_URL}/${id}`, initialPost)
+        return response.data
+    } catch (err) {
+        //return err.message;
+        return initialPost; // only for testing Redux!
+    }
+
 })
 
 // NOTE:
@@ -137,6 +154,14 @@ const postSlice = createSlice ({
                 }
                 console.log(action.payload)
                 state.post.push(action.payload)
+            })
+            .addCase(updatePost.fulfilled, (state, action) => {
+                action.payload.date = new Date().toISOString();
+                let prevsate = current(state.post)
+                let update = prevsate.map(stateItem => stateItem.id == action.payload.id ? stateItem = action.payload : stateItem)
+                console.log(update)
+                return {post: update, status: 'succeeded', error: null}
+ //               console.log(action.payload)
             })
     }
 })

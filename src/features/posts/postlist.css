@@ -24,7 +24,7 @@ span {
     display: inline-flex;
 }
 
-span button {
+span > a {
     align-self: center;
     margin-left: 0.7rem;
     height: 100%;

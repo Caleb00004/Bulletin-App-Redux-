@@ -49,9 +49,9 @@ export default function PostList() {
 
         Items = orderedPost.map(postItem => (
             <article key={postItem.id}>
-                <span><h2>{postItem.title}</h2><button>Edit</button></span>
+                <span><h2>{postItem.title}</h2><Link to={`/post/edit/${postItem.id}`}><button>Edit</button></Link></span>
                 <p>{postItem.body.substring(0,75)}...</p>
-                <Link to={`/singlePost/${postItem.id}`}> View Post</Link>
+                <Link to={`post/${postItem.id}`}> View Post</Link>
                 <PostAuthor userId={postItem.userId}/> 
                 <TimeAgo timeStamp={postItem.date}/>
                 <div className={'reactions'} style={{display: 'flex' }}>
