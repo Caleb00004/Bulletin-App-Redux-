@@ -142,12 +142,13 @@ const postSlice = createSlice ({
 })
 
 
-// the first .post is the name of given to the slice, the second .post is ht epost array inside the state object
+// the first .post is the name of given to the slice, the second .post is the post array inside the state object
 export const selectAllPosts = (state) => state.post.post 
 export const getPostsStatus = (state) => state.post.status
 export const getPostsError = (state) => state.post.error
 export const selectPostById = (state, PostId) => (
-    state.post.post.find(post => post.id === PostId)
+    state.post.post.find(post => post.id === PostId )
+//    console.log(state)
 )
 
 // postSlice automatically generated an action creator with the same name as the reducer function you created in the postSLice

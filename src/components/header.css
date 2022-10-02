@@ -1,0 +1,15 @@
+header {
+    display: flex;
+    background-color: rgb(19, 39, 98);
+    justify-content: space-around;
+}
+
+header > p {
+    align-self: center;
+
+}
+
+header > p > a {
+    text-decoration: none;
+    color: white;
+}

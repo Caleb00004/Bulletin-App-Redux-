@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"; // importing the useDipatch hook
 //import { postAdd } from "./postSlice"; // importing the postAdd action created in the post SLice.js file || This action will be passed to the useDispatch hook.
-import { addNewPost } from "./postSlice";
-import { selectAllUsers } from "../users/usersSlice";
+import { addNewPost } from "../features/posts/postSlice";
+import { selectAllUsers } from "../features/users/usersSlice";
 import './addpostcomp.css'
 
 export default function AddPost() {

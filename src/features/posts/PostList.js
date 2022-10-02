@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import './postlist.css'
 import { reactionAdded } from "./postSlice"; // importing the postAdd action created in the post SLice.js file || This action will be passed to the useDispatch hook.
 import { selectAllPosts, getPostsStatus, getPostsError, fetchPostData } from "./postSlice";
+import { Link } from "react-router-dom";
 
 import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TmeAgoComponent";
@@ -22,7 +23,7 @@ export default function PostList() {
         if (postsStatus === 'idle') {
            dispatch(fetchPostData()) 
         }
-        console.log(post)
+//        console.log(post)
     }, [postsStatus, dispatch])
 
     // ordering the post array based on time posted using sort method. ( It will return a new array now ordered based on the conditons set. )
@@ -48,9 +49,9 @@ export default function PostList() {
 
         Items = orderedPost.map(postItem => (
             <article key={postItem.id}>
-                {/* console.log(postItem.id) */}
-                <h2>{postItem.title}</h2>
-                <p>{postItem.body.substring(0,120)}</p>
+                <span><h2>{postItem.title}</h2><button>Edit</button></span>
+                <p>{postItem.body.substring(0,75)}...</p>
+                <Link to={`/singlePost/${postItem.id}`}> View Post</Link>
                 <PostAuthor userId={postItem.userId}/> 
                 <TimeAgo timeStamp={postItem.date}/>
                 <div className={'reactions'} style={{display: 'flex' }}>
@@ -68,9 +69,8 @@ export default function PostList() {
 
     console.log(post)
     return (
-        <>
-            <h1>Post List Component</h1>
+        <div className="postList">
             { Items }
-        </>        
+        </div>        
     )
 }
