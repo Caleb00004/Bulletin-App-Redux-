@@ -1,5 +1,5 @@
 // To handle evertyhing we do with the post we creates
-import { createSlice, nanoid, current, createAsyncThunk } from "@reduxjs/toolkit"; // This is to create a new Slice
+import { createSlice, createSelector, current, createAsyncThunk } from "@reduxjs/toolkit"; // This is to create a new Slice
 // import { createSlice, current } from "@reduxjs/toolkit";
 import { sub } from 'date-fns'
 import axios from 'axios'
@@ -9,7 +9,8 @@ const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts'
 const initialState = {
     post: [],
     status: 'idle', // 'idle', 'loading', 'succeeded', 'failed',
-    error: null
+    error: null,
+    count: 0
 }
 
 // NOTE: Thunks are like the Action creators, so they will be exported
@@ -70,28 +71,9 @@ const postSlice = createSlice ({
     initialState,  
     reducers: {
         // creating a reducer function to handle data submt in form
-        postAdd: { 
-            reducer(state, action) {   // after adding this function reducer, The postSlice will automatically generate an action creator function, with the same name
-                console.log(...state.post.post)
-                return [...state.post.post, action.payload]
-            },
-            prepare(title, content, userId) {
-                return {
-                    payload: {
-                        id: nanoid(),
-                        title,
-                        content,
-                        date: new Date().toISOString(),
-                        userId,
-                        reactions: {
-                            thumbsUp: 0,
-                            wow: 0,
-                            heart: 0,
-                            rocket: 0,
-                            coffe: 0
-                        }
-                    }
-                }
+        increment: {
+            reducer(state, action) {
+                return {...state, count: state.count + 1}
             }
         },
         reactionAdded: {
@@ -210,13 +192,19 @@ const postSlice = createSlice ({
 export const selectAllPosts = (state) => state.post.post 
 export const getPostsStatus = (state) => state.post.status
 export const getPostsError = (state) => state.post.error
+export const countValue = (state) => state.post.count
 export const selectPostById = (state, PostId) => (
     state.post.post.find(post => post.id === PostId )
 //    console.log(state)
 )
 
+export const selectPostUsers = createSelector(
+    [selectAllPosts, (state, userId) => userId],
+    (post, userId) => post.filter(post => post.userId === userId)
+)
+
 // postSlice automatically generated an action creator with the same name as the reducer function you created in the postSLice
-export const {postAdd, reactionAdded} = postSlice.actions // so i'm just exporting the action creator so i can use it in other files.
+export const {reactionAdded, increment} = postSlice.actions // so i'm just exporting the action creator so i can use it in other files.
 export default postSlice.reducer // exporting the postslice reducer so i can comibine it with other reducers in the global store in 'Store.js' file
 
 

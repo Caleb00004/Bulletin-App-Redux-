@@ -21,7 +21,7 @@ export default function PostList() {
     // The slice is to create a shallow/new array copy that we are operating on. so the main post array is still the same.
 
     const dispatch = useDispatch()
-    
+
     function handleReaction (id, reactKey) {
         dispatch(reactionAdded({reactKey, id}))
     }
@@ -36,6 +36,7 @@ export default function PostList() {
 
         Items = orderedPost.map(postItem => (
             <article key={postItem.id}>
+                {console.log('rendered')}
                 <span><h2>{postItem.title}</h2><Link to={`/post/edit/${postItem.id}`}><button>Edit</button></Link></span>
                 <p>{postItem.body.substring(0,75)}...</p>
                 <Link to={`post/${postItem.id}`}> View Post</Link>
@@ -54,7 +55,7 @@ export default function PostList() {
         Items = <h1>Failed</h1>
     } 
 
-    console.log(post)
+//    console.log(post)
     return (
         <div className="postList">
             { Items }

@@ -33,7 +33,12 @@ const userSlice = createSlice({
     }
 })
 
-//                                       The'.user' is because that was the nae i gave to userReducer in the store.js file.
+// The'.user' is because that was the nae i gave to userReducer in the store.js file.
 export const selectAllUsers = (state) => state.user
+/*
+export const selectSpecificUser = (state, userId) => (
+    state.user.filter(userItem => userItem.id === userId)
+)
+*/
 export default userSlice.reducer
 

@@ -1,12 +1,11 @@
 header {
     display: flex;
     background-color: rgb(19, 39, 98);
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 header > p {
     align-self: center;
-
 }
 
 header > p > a {

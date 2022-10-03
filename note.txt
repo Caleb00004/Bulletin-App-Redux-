@@ -48,3 +48,40 @@ format the data
 // Sometimes slices reducers may need to respond to other reducers that wer'ent defined as Part of the slices Reducers.
 //      You use an extraReducers function. This accepts a builder parameter.
 //      builder Parameter is an object that let's us define additional case reducers that run in response to the actions def=ined outside of the slice
+
+
+    OPTIMIZATION
+- Note a useSelector re-runs anytime an action is dipatched.
+
+To prevent this, you can use a 'memoized' useSelector (React.useMemo)
+This memoized useSelector can be created in the createslice file and exported to other files
+
+    How?
+first have to import createSelector from '@reduxjs/toolkit'
+import createSelector in slice file.
+
+use the createSelector in your slice file
+
+the first line should be it's dependencies. It can be in an array.
+
+Another Way to Optimize in Redux. is STATE NORMALICATION
+- NORMALIZED STATE. is a way to store data in a redux app.
+Normalization means...
+- no duplication of data 
+- also means keeping item stored in a lookup table by itemID
+
+Normalized State Shape.
+* object with an ID's array and a nested entities object that contains all of the items
+
+{
+    posts: {
+        ids: [1,2,3,...],
+        entities: {
+            '1': {
+                userId: 1,
+                id: 1,
+                title: ...etc
+            }
+        }
+    }
+}
