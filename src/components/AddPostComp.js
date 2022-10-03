@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"; // importing the useDipatch hook
 //import { postAdd } from "./postSlice"; // importing the postAdd action created in the post SLice.js file || This action will be passed to the useDispatch hook.
+import { useNavigate } from "react-router";
 import { addNewPost } from "../features/posts/postSlice";
 import { selectAllUsers } from "../features/users/usersSlice";
 import './addpostcomp.css'
@@ -13,7 +14,7 @@ export default function AddPost() {
     const [addRequestStatus, setAddRequestStatus] = useState('idle')
 
     const newPostDispatch = useDispatch()
-
+    const navigateTo = useNavigate()
     const allUsers = useSelector(selectAllUsers)
 //    console.log(allUsers)
 
@@ -36,6 +37,8 @@ export default function AddPost() {
                 setPostTitle('')
                 setPostContent('')
                 setUserId('')
+
+                navigateTo('/')
             } catch (err) {
                 console.error('failed to save post', err)
             } finally {

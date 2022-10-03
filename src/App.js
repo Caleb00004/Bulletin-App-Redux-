@@ -5,6 +5,7 @@ import SinglePostPage from "./features/posts/SinglePostPage";
 import AddPost from "./components/AddPostComp";
 import Header from "./components/Header";
 import Edit from "./components/Edit";
+import InvalidPath from "./components/InvalidPath";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/*" element={
+        <Route path="/" element={
           <>
             <PostList/>
           </>
@@ -23,6 +24,7 @@ function App() {
           <Route path=':postId' element={<SinglePostPage />}></Route>
           <Route path="edit/:postId" element={<Edit />}></Route>
         </Route>
+        <Route path='*' element={<InvalidPath />}/> {/* To handle paths that don't exist */}
       </Routes>
     </main>
   );

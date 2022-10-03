@@ -49,7 +49,7 @@ export default function Edit() {
                 setPostContent('')
                 setUserId('')
 
-                navigateTo(`post/${currentPost.postId}`)
+                navigateTo(`/post/${currentPost.id}`)
             } catch (err) {
                 console.error('failed to save post', err)
             } finally {
@@ -64,7 +64,7 @@ export default function Edit() {
         console.log('rannning')
             dispatcher(deletePost(currentPost)).unwrap()
 
-            navigateTo(`post`)
+            navigateTo(`/`)
         }
     
 
@@ -91,9 +91,10 @@ export default function Edit() {
                     onChange={(e) => setPostContent(e.target.value)}
             >
             </textarea>
-            <button disabled={!canSave} onClick={savePost}>Add Post</button>
-            <button onClick={hadnleDelete}>Delete Post</button>
+            <button disabled={!canSave} onClick={savePost}>update Post</button>
+            <button style={{backgroundColor: 'red', marginTop: '0.5rem'}}onClick={hadnleDelete}>Delete Post</button>
             
         </section>
     )
+    
 }

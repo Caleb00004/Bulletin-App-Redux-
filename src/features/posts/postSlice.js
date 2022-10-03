@@ -41,6 +41,7 @@ export const updatePost = createAsyncThunk('put/updatePost', async (initialPost)
         return response.data
     } catch (err) {
         //return err.message;
+        // This is incase if the post e want to update was created manually and not fetched from the server
         return initialPost; // only for testing Redux!
     }
 
@@ -164,7 +165,7 @@ const postSlice = createSlice ({
                     wow: 0,
                     heart: 0,
                     rocket: 0,
-                    coffe: 0
+                    coffee: 0
                 }
                 console.log(action.payload)
                 state.post.push(action.payload)
