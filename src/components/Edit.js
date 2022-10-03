@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"; // importing the useDipatch hook
-import { addNewPost } from "../features/posts/postSlice";
+import { deletePost } from "../features/posts/postSlice";
 import { selectPostById, updatePost } from "../features/posts/postSlice";
 import { selectAllUsers } from "../features/users/usersSlice";
 import { useParams, useNavigate } from "react-router"
@@ -57,6 +57,16 @@ export default function Edit() {
             }
         }
     }
+    
+    console.log('ran')
+    
+    function hadnleDelete() {
+        console.log('rannning')
+            dispatcher(deletePost(currentPost)).unwrap()
+
+            navigateTo(`post`)
+        }
+    
 
     return (
         <section>
@@ -82,7 +92,8 @@ export default function Edit() {
             >
             </textarea>
             <button disabled={!canSave} onClick={savePost}>Add Post</button>
-
+            <button onClick={hadnleDelete}>Delete Post</button>
+            
         </section>
     )
 }

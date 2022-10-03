@@ -32,15 +32,29 @@ export const addNewPost = createAsyncThunk('posts/addNewPost', async (testvarame
     return response.data
 })
 
-export const updatePost = createAsyncThunk('put/addNewPost', async (initialPost) => {
+export const updatePost = createAsyncThunk('put/updatePost', async (initialPost) => {
     const {id} = initialPost
     console.log(initialPost)
     try {
         const response = await axios.put(`${POSTS_URL}/${id}`, initialPost)
+        console.log(response)
         return response.data
     } catch (err) {
         //return err.message;
         return initialPost; // only for testing Redux!
+    }
+
+})
+
+export const deletePost = createAsyncThunk('posts/deletePost', async (initialPost) => {
+    const {id} = initialPost
+    console.log(initialPost)
+    try {
+        const response = await axios.delete(`${POSTS_URL}/${id}`)
+        if (response?.status === 200) return initialPost; // check if post was succesfully deleted
+        return `${response?.status}: ${response?.statusText}`; // if not return whtever status or status text was returned, so it can be console logged to find out the problem.
+    } catch (err) {
+        return err.message;
     }
 
 })
@@ -156,11 +170,35 @@ const postSlice = createSlice ({
                 state.post.push(action.payload)
             })
             .addCase(updatePost.fulfilled, (state, action) => {
+                if (!action.payload?.id) { // to check if the post was succesfully updated. (here we are checking if the payload object has an id) payload is new 'updated' obj returned from the api put request.
+                    console.log('Update could not complete')
+                    console.log(action.payload)
+                    return;
+                } // everything under will only run if the post was succesfully updated. i.e the above if statement does not run.
+                let {id} = action.payload
                 action.payload.date = new Date().toISOString();
+
                 let prevsate = current(state.post)
-                let update = prevsate.map(stateItem => stateItem.id == action.payload.id ? stateItem = action.payload : stateItem)
+                let update = prevsate.map(stateItem => stateItem.id == id ? stateItem = action.payload : stateItem)
                 console.log(update)
                 return {post: update, status: 'succeeded', error: null}
+ //               console.log(action.payload)
+            })
+            .addCase(deletePost.fulfilled, (state, action) => {
+                console.log(action.payload)
+                if (!action.payload?.id) { // to check if the post was succesfully deleted. (here we are checking if the payload object has an id)
+                    console.log('Delete could not complete')
+                    console.log(action.payload)
+                    return;
+                } // everything under will only run if the post was succesfully updated. i.e the above if statement does not run.
+                let {id} = action.payload
+
+                let prevsate = current(state.post)
+                let deleted = prevsate.filter(stateItem => stateItem.id !== id )
+                console.log(deleted)
+
+                state.post = deleted
+//                return {post: deleted, status: 'succeeded', error: null}
  //               console.log(action.payload)
             })
     }
