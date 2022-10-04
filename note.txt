@@ -64,7 +64,7 @@ use the createSelector in your slice file
 
 the first line should be it's dependencies. It can be in an array.
 
-Another Way to Optimize in Redux. is STATE NORMALICATION
+Another Way to Optimize in Redux. is STATE NORMALIZATION
 - NORMALIZED STATE. is a way to store data in a redux app.
 Normalization means...
 - no duplication of data 
@@ -85,3 +85,15 @@ Normalized State Shape.
         }
     }
 }
+
+First import createEntityAdapter from '@reduxjs/toolkit'
+This is kinda like React.memo() but for redux. Note: You can also use React.memo to prevent unnecessary Re-render of components when using redux.
+
+This 'createEntityAdapter' is a function
+- that generates a set of prebuilt reducers and selectors for performing CRUD operations on a normalized state structure
+   containing instances of a particular type of data object
+
+NOTE: The term "Entity" is used to refer to a unique type of data object in an application.
+   For example, in a blogging application, you might have User, Post, and Comment data objects, with many instances of each being stored in the client and persisted on the server.
+
+    User data object is an entity. I.E  a unique type of data object that the application uses
