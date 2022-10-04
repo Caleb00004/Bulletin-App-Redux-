@@ -1,5 +1,6 @@
 // NOTE: React toolkit uses Ember.js under the hood
 
+1
 .substring method.
 - This is used to get a specific number of letters from a string.
 
